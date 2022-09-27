@@ -1,0 +1,25 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: prod
+  datasource:
+    url: jdbc:mysql://my-chat-rds-mysql.ccjibnnpbem7.ap-northeast-2.rds.amazonaws.com:3306/test
+    username: admin
+    password: dkwktm45!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: my-chat-redis-ec.c4z4ty.ng.0001.apn2.cache.amazonaws.com
+    port: 6379
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        enable_lazy_load_no_trans: true
+  config:
+    use-legacy-processing: true
