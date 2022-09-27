@@ -28,10 +28,12 @@ public class IndexController {
 		String name = auth.getName();
 		return userService.saveUser(name);
 	}
+
 	@GetMapping("/index")
 	public String status() {
 		return "서버 실행 확인";
 	}
+
 	@GetMapping("/user")
 	public User getUserInfo() {
 		logger.info("user token 발급");

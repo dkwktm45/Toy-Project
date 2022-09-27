@@ -31,7 +31,6 @@ public class ChatRoomController {
 	private final ChatRoomRepository chatRoomRepository;
 	private final JwtTokenProvider jwtTokenProvider;
 	private final BoardParticipantService boardParticipantService;
-	private final UserService userService;
 	private final ChatService chatService;
 
 	@PostMapping(value = "/my-rooms")
@@ -53,12 +52,7 @@ public class ChatRoomController {
 		ChatRoom chatRoom = chatRoomRepository.createChatRoom();
 		return boardParticipantService.setChat(boardId,chatRoom.getRoomId() ,userId ,userName);
 	}
-	@PostMapping("/friend-create")
-	public void friendCreate(@RequestBody String email){
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();
-		chatService.createFriendChat(name,email);
-	}
+
 
 	@MessageMapping("/chat/message")
 	public void message(ChatMessage message, @Header("token") String token) {

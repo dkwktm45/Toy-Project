@@ -14,7 +14,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "http://127.0.0.1:8012")
 public class NotificationController {
 
 	private final NotificationService notificationService;

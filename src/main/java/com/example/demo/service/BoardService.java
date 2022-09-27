@@ -28,5 +28,4 @@ public class BoardService {
 		Board board = boardRepository.findByParticipantId(participantId).orElseThrow(NullPointerException::new);
 		return board;
 	}
-
 }

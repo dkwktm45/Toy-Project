@@ -1,7 +1,8 @@
+
 <template>
   <footer class="footer text-center">
   <span :class="alarmStyle" >
-    <div class="list-group ">
+    <div class="list-group">
       <div class="float-start list-group-item  ">
         당신에게 도착한 메시지입니다!
         <svg v-on:click="notified" xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-x-circle float-end" viewBox="0 0 16 16">
@@ -10,7 +11,7 @@
         </svg>
       </div>
       <div class="test">
-        <div v-if="alarmList.length != 0" v-for="alarm in alarmList">
+        <div v-if="alarmList != null" v-for="alarm in alarmList">
           <button v-if="alarm.alarmType == 'DUO'" v-on:click="enterRoom(alarm.id)" type="button" class="list-group-item list-group-item-action text-primary">{{ alarm.senderName }}님에게 도착한 메시지가 있습니다.
             <span class="badge bg-primary rounded-pill">{{alarm.count}}</span>
           </button>
@@ -38,7 +39,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
         <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
       </svg>
-      <div class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+      <div class="mark position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
         !
       </div>
     </button>
@@ -46,7 +47,7 @@
 </template>
 <script setup>
 import { useStore } from "vuex";
-import {reactive, ref} from 'vue'
+import {ref} from 'vue'
 import {useRouter} from "vue-router/dist/vue-router";
 import {dataJSON} from "../api/boardList.js"
 import axios from "axios";
@@ -57,7 +58,7 @@ const alarmStyle = ref("visually-hidden")
 const button = ref('')
 let alarmList = ref([]);
 let recevieAlarm = null;
-const source = new EventSource("http://my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com:8080/receive/notify/" +name,{withCredentials : true});
+const source = new EventSource("http://localhost:8080/receive/notify/" +name,{withCredentials : true});
 
 source.onmessage = function(e) {
   var data = JSON.parse(e.data)
@@ -72,7 +73,7 @@ source.onerror = (e) => {
 
 const recvAlarm = (alarm) => {
   var data = ref(alarm)
-  var findUser = alarmList.value.find(info => info.senderName === data.value.senderName);
+  var findUser = alarmList.value == null ? null : alarmList.value.find(info => info.senderName === data.value.senderName);
   if(findUser){
     findUser.count++
   }else{
@@ -82,8 +83,8 @@ const recvAlarm = (alarm) => {
 }
 
 const alertList = () =>{
-    alarmStyle.value = "visible"
-    button.value = "d-none"
+  alarmStyle.value = "visible"
+  button.value = "d-none"
 }
 
 const notified = () =>{
@@ -95,7 +96,7 @@ const findAll = () => {
   var params = new URLSearchParams();
   params.append('name', name);
   axios.post(`/find`,params, {
-     auth: {
+    auth: {
       username: "happydaddy",
       password: "1234"
     }
@@ -124,7 +125,7 @@ const enterRoom = (roomId) => {
   params.append('roomId', roomId);
   params.append('userName', store.state.username);
   axios.post('/participants/one',params, {
-     auth: {
+    auth: {
       username: "happydaddy",
       password: "1234"
     }
@@ -199,6 +200,11 @@ const deleteNoti = (alarm) => {
 }
 
 findAll()
+if(alarmList.value == null){
+  document.getElementsByClassName("mark").style.visibility="hidden";
+}
+
+console.log(alarmList.value == null);
 </script>
 
 <style scoped>

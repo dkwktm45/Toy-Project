@@ -10,7 +10,7 @@ import store from "./stores/counter.js"
 import axios from 'axios'
 
 
-axios.defaults.baseURL = 'http://my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com:8080';
+axios.defaults.baseURL = 'http://localhost:8080';
 
 const app = createApp(Chat)
 app.use(store)

@@ -28,8 +28,6 @@ public class BoardController {
 
 	@PostMapping(value = "/board-create")
 	public Board createBoard(@RequestBody Board board){
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();
 		logger.info("board-create");
 		return boardService.createBoard(board);
 	}

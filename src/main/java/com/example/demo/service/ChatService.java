@@ -71,14 +71,4 @@ public class ChatService {
 		redisTemplate.convertAndSend(channelTopic.getTopic(), chatMessage);
 	}
 
-	public void createFriendChat(String name,String email) {
-
-		ChatRoom chatRoom = ChatRoom.create();
-		Set<String> userList = new HashSet<>();
-		userList.add(email);
-		userList.add(name);
-		chatRoom.setUserList(userList);
-		chatRoomRepository.save(chatRoom);
-
-	}
 }
