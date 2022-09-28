@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-5">
-      <h3>{{ board.boardName }}님 채팅방</h3>
+      <h3>{{ board.boardWrite }}님 채팅방</h3>
     </div>
   </div>
   <div class="input-group">

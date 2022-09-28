@@ -1,21 +1,19 @@
-package com.example.demo.model;
+package com.example.demo.dto;
 
+import com.example.demo.model.BoardParticipants;
+import com.example.demo.model.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "board")
-public class Board {
+public class BoardDto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long boardId;
@@ -30,6 +28,4 @@ public class Board {
 	@JsonBackReference
 	@JoinColumn(name = "user_id")
 	private User user;
-
-
 }

@@ -25,4 +25,5 @@ public class BoardParticipants {
 	@JsonBackReference
 	@JoinColumn(name = "board_id")
 	private Board board;
+
 }

@@ -16,8 +16,8 @@ public class BoardService {
 		return board;
 	}
 
-	public List<Board> findAllBoard(String name){
-		return boardRepository.findByBoardNameNot(name).orElseThrow();
+	public List<Board> findAllBoard(){
+		return boardRepository.findAll();
 	}
 
 	public Board getOne(Long boardId){

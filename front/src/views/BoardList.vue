@@ -1,17 +1,24 @@
 <template>
   <ol class="list-group ">
     <div class="fw-bold">
-      <h3>모집 공고
-        <button class="btn btn-primary" type="button" @click="createBoard">모집 개설</button>
-      </h3>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <label class="input-group-text">방제목</label>
+        </div>
+        <input type="text" class="form-control" v-model="board_title" @keyup.enter="createBoard(board_title)">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button" @click="createBoard(board_title)">채팅방 개설</button>
+        </div>
+      </div>
+
     </div>
     <li v-for="data in boardList" v-on:click="enterBoard(data.boardId)"
         class="list-group-item d-flex justify-content-between align-items-start">
       <div class="ms-2 me-auto">
-        <div class="fw-bold">모집 공고</div>
-        닉네임 : {{ data.boardName }}
-        <span class="btn btn-outline-danger">Delete</span>
+        <div class="fw-bold"><h5 class="mb-1">{{ data.boardTitle }}</h5></div>
+        닉네임 : {{ data.boardWriter }}
       </div>
+      <span class="btn float-end btn-outline-danger">마감</span>
     </li>
   </ol>
 </template>
@@ -26,20 +33,29 @@ const store = useStore();
 const boardList = ref([])
 const router = useRouter();
 const modal = ref(false);
-
+const board_title = '';
 const myPositions = ref([]);
 const otherPositions = ref([]);
-const createBoard = (e) => {
-  modal.value = true;
-  axios.post('/board-create', {boardName: store.state.username, user: {userId : store.state.userId}}, {
-    auth: {
-      username: store.state.username,
-      password: "1234"
-    }
-  }).then(response => {
-    console.log("게시판 성공")
-    getBoardList()
-  })
+
+const createBoard = (board_title) => {
+  console.log(board_title)
+  if("" === board_title) {
+    alert("방 제목을 입력해 주십시요.");
+    return;
+  } else {
+    axios.post('/board-create', {boardTitle : board_title,boardWriter: store.state.username, user: {userId : store.state.userId}}, {
+      auth: {
+        username: store.state.username,
+        password: "1234"
+      }
+    }).then(response => {
+      console.log("게시판 성공")
+      getBoardList()
+    }).catch(e =>{
+      alert(e.getMessage())
+    })
+  }
+
 }
 
 const getBoardList = () => {

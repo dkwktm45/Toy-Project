@@ -1,9 +1,11 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.BoardParticipantsDto;
 import com.example.demo.model.Board;
 import com.example.demo.model.BoardParticipants;
 import com.example.demo.model.redis.ChatMessage;
 import com.example.demo.model.User;
+import com.example.demo.model.redis.ChatRoom;
 import com.example.demo.repo.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -27,20 +29,25 @@ public class BoardParticipantService {
 
 	private final BoardParticipantsRepository participantsRepository;
 	private final BoardService boardService;
+	private final UserService userService;
 	private final BoardRepository boardRepository;
-	private final UserRepository userRepository;
 	private final ChatService chatService;
-	public Map<String, Object> setChat(Long boardId, String chatRoomId, Long userId,String name) throws Exception {
+
+	public Map<String, Object> setChat(Long boardId, Long userId, String name) throws Exception {
 		Board board = boardService.getOne(boardId);
 		if(board.getBoardParticipantsList().stream().anyMatch(info -> info.getUserId().equals(userId)) && board.getBoardParticipantsList() != null){
 			throw new Exception("이미 존재하는 회원입니다.");
+		}else if(board.getBoardWriter().equals(name)){
+			throw new Exception("자기 자신은 참여 할 수 없습니다.");
 		}else {
+			ChatRoom chatRoom = chatService.createChat();
 			BoardParticipants boardParticipants = BoardParticipants.builder()
 					.board(board)
 					.userName(name)
 					.userId(userId)
-					.roomId(chatRoomId)
+					.roomId(chatRoom.getRoomId())
 					.build();
+
 			participantsRepository.save(boardParticipants);
 			Map<String, Object> result = new HashMap<>();
 			result.put("boardId",boardParticipants.getBoard().getBoardId());
@@ -48,16 +55,11 @@ public class BoardParticipantService {
 			return result;
 		}
 	}
-	public void updateUserList(BoardParticipants boardParticipants){
-		participantsRepository.save(boardParticipants);
-	}
 
-	public List<BoardParticipants> myChatRoom(Long userId){
+	public List<BoardParticipantsDto> myChatRoom(Long userId){
 		logger.info("myChatRoom start");
-		// 나중에 생략가능 member!
-		User user = userRepository.findByUserId(userId);
-		List<BoardParticipants> boardList = participantsRepository.findByBoard(userId);
-
+		List<BoardParticipantsDto> boardList = participantsRepository.findByBoard(userId)
+				.stream().map(BoardParticipantsDto::new).collect(Collectors.toList());
 		logger.info("myChatRoom complete");
 		return boardList;
 	}

@@ -70,5 +70,7 @@ public class ChatService {
 		chatMessageRepository.createChatMessage(chatMessage);
 		redisTemplate.convertAndSend(channelTopic.getTopic(), chatMessage);
 	}
-
+	public ChatRoom createChat(){
+		return chatRoomRepository.createChatRoom();
+	}
 }

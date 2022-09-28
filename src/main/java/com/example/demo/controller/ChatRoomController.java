@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.BoardParticipantsDto;
 import com.example.demo.model.*;
 import com.example.demo.model.redis.ChatMessage;
 import com.example.demo.model.redis.ChatRoom;
@@ -28,13 +29,12 @@ import java.util.Map;
 @RequestMapping("/chat")
 public class ChatRoomController {
 	private final Logger logger = LoggerFactory.getLogger(ChatRoomController.class);
-	private final ChatRoomRepository chatRoomRepository;
 	private final JwtTokenProvider jwtTokenProvider;
 	private final BoardParticipantService boardParticipantService;
 	private final ChatService chatService;
 
 	@PostMapping(value = "/my-rooms")
-	public ResponseEntity<List<BoardParticipants>> myRoom(@RequestBody Long userId) {
+	public ResponseEntity<List<BoardParticipantsDto>> myRoom(@RequestBody Long userId) {
 		logger.info("my-room 접근");
 		return ResponseEntity.ok(boardParticipantService.myChatRoom(userId));
 	}
@@ -49,8 +49,8 @@ public class ChatRoomController {
 	public Map<String, Object> createRoom(@RequestParam(value = "boardId",required=false) Long boardId
 			, @RequestParam("userName") String userName, @RequestParam("userId") Long userId) throws Exception {
 		logger.info("room 접근");
-		ChatRoom chatRoom = chatRoomRepository.createChatRoom();
-		return boardParticipantService.setChat(boardId,chatRoom.getRoomId() ,userId ,userName);
+
+		return boardParticipantService.setChat(boardId ,userId ,userName);
 	}
 
 

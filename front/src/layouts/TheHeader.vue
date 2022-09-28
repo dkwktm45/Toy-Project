@@ -39,6 +39,9 @@ const authUser = () =>{
 }
 authUser()
 </script>
-<!-- eslint-disable prettier/prettier -->
 
-<style lang="scss" scoped></style>
+<style>
+.navbar{
+  z-index: 1;
+}
+</style>
