@@ -1,12 +1,15 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.BoardParticipantsDto;
+import com.example.demo.exception.AllowMe;
+import com.example.demo.exception.Already;
+import com.example.demo.exception.NotFound;
 import com.example.demo.model.Board;
 import com.example.demo.model.BoardParticipants;
 import com.example.demo.model.redis.ChatMessage;
-import com.example.demo.model.User;
 import com.example.demo.model.redis.ChatRoom;
 import com.example.demo.repo.*;
+import com.example.demo.response.BoardDto;
+import com.example.demo.response.BoardParticipantsDto;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,9 +39,9 @@ public class BoardParticipantService {
 	public Map<String, Object> setChat(Long boardId, Long userId, String name) throws Exception {
 		Board board = boardService.getOne(boardId);
 		if(board.getBoardParticipantsList().stream().anyMatch(info -> info.getUserId().equals(userId)) && board.getBoardParticipantsList() != null){
-			throw new Exception("이미 존재하는 회원입니다.");
+			throw new Already();
 		}else if(board.getBoardWriter().equals(name)){
-			throw new Exception("자기 자신은 참여 할 수 없습니다.");
+			throw new AllowMe();
 		}else {
 			ChatRoom chatRoom = chatService.createChat();
 			BoardParticipants boardParticipants = BoardParticipants.builder()
@@ -47,11 +50,11 @@ public class BoardParticipantService {
 					.userId(userId)
 					.roomId(chatRoom.getRoomId())
 					.build();
-
 			participantsRepository.save(boardParticipants);
+			BoardParticipantsDto participantsDto = new BoardParticipantsDto(boardParticipants);
 			Map<String, Object> result = new HashMap<>();
-			result.put("boardId",boardParticipants.getBoard().getBoardId());
-			result.put("participants", boardParticipants);
+			result.put("boardId",participantsDto.getBoardDto().getBoardId());
+			result.put("participants", participantsDto);
 			return result;
 		}
 	}
@@ -64,12 +67,10 @@ public class BoardParticipantService {
 		return boardList;
 	}
 
-	public List<Board> otherChatRoom(Long userId){
-		logger.info("otherChatRoom start");
-		List<BoardParticipants> participantsList = participantsRepository.findByUserId(userId).get();
-		List<Board> boardList = participantsList.stream().map(info -> info.getBoard()).collect(Collectors.toList());
-		logger.info("otherChatRoom complete");
-		return boardList;
+	public List<BoardParticipantsDto> otherChatRoom(Long userId){
+		logger.info("otherChatRoom ");
+		return participantsRepository.findByUserId(userId)
+				.stream().map(BoardParticipantsDto::new).collect(Collectors.toList());
 	}
 
 	public List<BoardParticipants> deleteRoom(Long boardId, Long participantId) {

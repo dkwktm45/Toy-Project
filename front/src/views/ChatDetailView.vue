@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-    <div class="col-md-5">
-      <h3>{{ board.boardWrite }}님 채팅방</h3>
+    <div>
+      <h3>{{ board.boardTitle }} 채팅방</h3>
     </div>
   </div>
   <div class="input-group">
@@ -64,7 +64,6 @@ const sendMessage = (type) => {
   message.value = '';
 }
 
-// board에 대한 수락버튼 및 다양한거 버튼 활성화를 위함
 const findBoard = (participantId) => {
   axios.post("/board-id", participantId, {
     headers: {
@@ -76,8 +75,8 @@ const findBoard = (participantId) => {
   }).then(res => {
     MasterName.value = res.data.userName
     board.value = res.data.board;
-  }).catch(e => {
-    alert(e)
+  }).catch(error => {
+    alert(error.response.data.message);
   })
 }
 

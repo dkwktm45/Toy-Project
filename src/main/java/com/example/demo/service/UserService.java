@@ -4,6 +4,7 @@ import com.example.demo.model.Board;
 import com.example.demo.model.redis.ChatRoom;
 import com.example.demo.model.User;
 import com.example.demo.repo.UserRepository;
+import com.example.demo.response.UserDto;
 import com.example.demo.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,20 +20,15 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final JwtTokenProvider jwtTokenProvider;
 
-	public User findByName(String name) {
-		return userRepository.findByUserName(name);
-	}
 
-	public User saveUser(String name){
-		Long userId = User.setId(name);
-		Optional<User> memoryUser = userRepository.findById(userId);
-		if(memoryUser.isEmpty()){
-			User user = User.builder().userName(name).token(jwtTokenProvider.generateToken(name)).userId(userId).build();
-			userRepository.save(user);
-			return user;
-		}else{
-			return memoryUser.get();
+	public UserDto saveUser(User user) {
+		Optional<User> memoryUser = userRepository.findByUserName(user.getUserName());
+		if (memoryUser.isEmpty()) {
+			User res = User.builder().userName(user.getUserName()).token(jwtTokenProvider.generateToken(user.getUserName())).build();
+			userRepository.save(res);
+			return new UserDto(res);
 		}
+		return new UserDto(memoryUser.get());
 	}
 
 	public User findById(Long id) {

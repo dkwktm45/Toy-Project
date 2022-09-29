@@ -21,7 +21,6 @@
       <span class="btn float-end btn-outline-danger">마감</span>
     </li>
   </ol>
-  <b-modal v-model="modalShow">Hello From Modal!</b-modal>
 </template>
 
 <script setup>
@@ -41,19 +40,24 @@ const otherPositions = ref([]);
 
 const createBoard = (board_title) => {
   console.log(board_title)
-  if("" === board_title) {
+  if ("" === board_title) {
     alert("방 제목을 입력해 주십시요.");
     return;
   } else {
-    axios.post('/board-create', {boardTitle : board_title,boardWriter: store.state.username, user: {userId : store.state.userId}}).then(response => {
+    axios.post('/board-create', {
+      boardTitle : board_title,
+      boardWriter: store.state.username,
+      user       : {userId: store.state.userId}
+    }).then(response => {
       console.log("게시판 성공")
       getBoardList()
-    }).catch(e =>{
-      alert(e.getMessage())
+    }).catch(error => {
+      alert(error.response.data.message);
     })
   }
 
 }
+
 
 const getBoardList = () => {
   axios.post('/board-all', {}, {
@@ -67,8 +71,8 @@ const getBoardList = () => {
         boardList.value = response.data
       }
   )
-      .catch(response => {
-        alert(response);
+      .catch(error => {
+        alert(error.response.data.message);
       });
 }
 
@@ -86,10 +90,7 @@ const enterBoard = (boardId) => {
     localStorage.setItem('wschat.participantId', res.data.participants.participantId);
     router.push("/chat-detail")
   }).catch(error => {
-    const err = error;
-    if (err.response) {
-      alert("state : " + err.response.data);
-    }
+    alert(error.response.data.message);
   })
 }
 getBoardList()

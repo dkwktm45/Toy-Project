@@ -49,7 +49,6 @@
 import { useStore } from "vuex";
 import {ref} from 'vue'
 import {useRouter} from "vue-router/dist/vue-router";
-import {dataJSON} from "../api/boardList.js"
 import axios from "axios";
 const router = useRouter();
 const store = useStore();
@@ -65,7 +64,6 @@ source.onmessage = function(e) {
   data.count = 1
   recvAlarm(data)
 };
-const data = dataJSON;
 
 source.onerror = (e) => {
   router.push("/login")

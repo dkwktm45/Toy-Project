@@ -1,16 +1,20 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.User;
+import com.example.demo.response.UserDto;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,11 +26,9 @@ public class IndexController {
 	private final UserService userService;
 
 	@PostMapping("/loginInsert")
-	public User vue() {
+	public ResponseEntity<UserDto> vue(@RequestBody User user) {
 		logger.info("loginInsert");
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();
-		return userService.saveUser(name);
+		return ResponseEntity.ok().header("accesstoken", jwtTokenProvider.generateToken(user.getUserName())).body(userService.saveUser(user));
 	}
 
 	@GetMapping("/index")
@@ -35,10 +37,10 @@ public class IndexController {
 	}
 
 	@GetMapping("/user")
-	public User getUserInfo() {
+	public UserDto getUserInfo() {
 		logger.info("user token 발급");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
-		return User.builder().token(jwtTokenProvider.generateToken(name)).build();
+		return UserDto.builder().token(jwtTokenProvider.generateToken(name)).build();
 	}
 }

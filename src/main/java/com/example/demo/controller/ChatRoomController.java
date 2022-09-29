@@ -1,23 +1,17 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.BoardParticipantsDto;
 import com.example.demo.model.*;
 import com.example.demo.model.redis.ChatMessage;
-import com.example.demo.model.redis.ChatRoom;
-import com.example.demo.repo.ChatRoomRepository;
+import com.example.demo.response.BoardParticipantsDto;
 import com.example.demo.service.BoardParticipantService;
 import com.example.demo.service.ChatService;
 import com.example.demo.security.JwtTokenProvider;
-import com.example.demo.service.UserService;
-import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -40,7 +34,7 @@ public class ChatRoomController {
 	}
 
 	@PostMapping(value = "/other-rooms")
-	public ResponseEntity<List<Board>> otherRoom(@RequestBody Long userId) {
+	public ResponseEntity<List<BoardParticipantsDto>> otherRoom(@RequestBody Long userId) {
 		logger.info("other-room 접근");
 		return ResponseEntity.ok(boardParticipantService.otherChatRoom(userId));
 	}

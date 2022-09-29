@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Board;
+import com.example.demo.response.BoardDto;
 import com.example.demo.service.BoardService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -28,24 +29,21 @@ public class BoardController {
 	private final BoardService boardService;
 
 	@PostMapping(value = "/board-create")
-	public Board createBoard(@RequestBody Board board){
+	public BoardDto createBoard(@RequestBody Board board){
 		logger.info("board-create");
 		return boardService.createBoard(board);
 	}
 
 	@PostMapping(value = "/board-all")
-	public ResponseEntity<List<Board>> findAll(){
+	public ResponseEntity<List<BoardDto>> findAll(){
 		logger.info("board-all");
-		return ResponseEntity.ok(boardService.findAllBoard());
+		List<BoardDto> boardDtoList = boardService.findAllBoard();
+		return ResponseEntity.ok(boardDtoList);
 	}
 
 	@PostMapping(value = "/board-id")
 	public ResponseEntity<Map<String,Object>> findById(@RequestBody Long participantId){
 		logger.info("board-Id");
-		Map<String,Object> result = new HashMap<>();
-		Board board = boardService.getBoardId(participantId);
-		result.put("board" , board);
-		result.put("userName",board.getUser().getUserName());
-		return ResponseEntity.ok(result);
+		return ResponseEntity.ok(boardService.getBoardId(participantId));
 	}
 }
