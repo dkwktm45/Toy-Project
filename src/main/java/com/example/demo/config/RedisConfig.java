@@ -19,11 +19,10 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-//@Profile("prod")
+@Profile("prod")
 @Configuration
 @RequiredArgsConstructor
 public class RedisConfig {
-/*
 	@Value("${spring.redis.host}")
 	private String host;
 
@@ -44,7 +43,7 @@ public class RedisConfig {
 				new LettuceConnectionFactory(redisStandaloneConfiguration);
 
 		return lettuceConnectionFactory;
-	}*/
+	}
 
 	/**
 	 * 단일 Topic 사용을 위한 Bean 설정

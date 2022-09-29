@@ -12,6 +12,6 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addMapping("/**").allowedHeaders("*")
 				.allowCredentials(true)
 				.allowedMethods(ALLOWED_METHOD_NAMES.split(","))
-				.allowedOrigins("http://127.0.0.1/");
+				.allowedOrigins("http://my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com/");
 	}
 }

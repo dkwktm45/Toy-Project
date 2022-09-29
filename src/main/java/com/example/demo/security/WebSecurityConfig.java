@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		CorsConfiguration configuration = new CorsConfiguration();
 
-		configuration.addAllowedOrigin("http://127.0.0.1/");
+		configuration.addAllowedOrigin("http://my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com/");
 		configuration.addAllowedMethod("*");
 		configuration.addAllowedHeader("*");
 		configuration.setMaxAge((long) 3600);
