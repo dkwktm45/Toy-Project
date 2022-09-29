@@ -21,6 +21,7 @@
       <span class="btn float-end btn-outline-danger">마감</span>
     </li>
   </ol>
+  <b-modal v-model="modalShow">Hello From Modal!</b-modal>
 </template>
 
 <script setup>
@@ -29,6 +30,7 @@ import {ref} from 'vue'
 import {useStore} from "vuex";
 import {useRouter} from "vue-router/dist/vue-router";
 
+const modalShow = false;
 const store = useStore();
 const boardList = ref([])
 const router = useRouter();
@@ -43,12 +45,7 @@ const createBoard = (board_title) => {
     alert("방 제목을 입력해 주십시요.");
     return;
   } else {
-    axios.post('/board-create', {boardTitle : board_title,boardWriter: store.state.username, user: {userId : store.state.userId}}, {
-      auth: {
-        username: store.state.username,
-        password: "1234"
-      }
-    }).then(response => {
+    axios.post('/board-create', {boardTitle : board_title,boardWriter: store.state.username, user: {userId : store.state.userId}}).then(response => {
       console.log("게시판 성공")
       getBoardList()
     }).catch(e =>{
@@ -71,7 +68,7 @@ const getBoardList = () => {
       }
   )
       .catch(response => {
-        alert("게시판 불러오기 실패하였습니다.");
+        alert(response);
       });
 }
 
@@ -88,6 +85,11 @@ const enterBoard = (boardId) => {
     localStorage.setItem('wschat.roomId', res.data.participants.roomId);
     localStorage.setItem('wschat.participantId', res.data.participants.participantId);
     router.push("/chat-detail")
+  }).catch(error => {
+    const err = error;
+    if (err.response) {
+      alert("state : " + err.response.data);
+    }
   })
 }
 getBoardList()

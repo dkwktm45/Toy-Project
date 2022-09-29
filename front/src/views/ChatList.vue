@@ -3,7 +3,7 @@
     <div class="myRoom">
       <div class="row mb-3">
         <div class="col-md-12">
-          <h3>내가 모집한 듀오 채팅방</h3>
+          <h3>내가 모집한 채팅방</h3>
         </div>
       </div>
       <ul class="list-group room">
@@ -17,7 +17,7 @@
     <div class="otherRoom">
       <div class="row mb-3">
         <div class="col-md-12">
-          <h3>내가 지원한 듀오 채팅방</h3>
+          <h3>내가 지원한 채팅방</h3>
         </div>
       </div>
       <ul class="list-group room">

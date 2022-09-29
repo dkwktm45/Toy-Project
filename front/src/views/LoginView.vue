@@ -28,15 +28,14 @@ const store = useStore()
 const router = useRouter();
 
 const login = () =>{
-  axios.post("/loginInsert",null ,{
+  axios.post("/loginInsert", {userName : username.value,userPwd : password.value } ,{
     auth : {
       username: username.value,
       password: password.value
     }
   }).then(res => {
-    store.commit("setUsername",username.value)
+    store.commit("setUsername",res.data.userName)
     store.commit("setUserId",res.data.userId)
-    store.commit("setUser",res.data)
 
     router.push("/board-list")
   }).catch(e => {
