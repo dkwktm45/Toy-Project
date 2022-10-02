@@ -6,7 +6,7 @@
 
 이와 동시에 기존 프로젝트를 모 각 코딩을 위함이다.
 
-👉 [프로젝트 링크](my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com)
+👉 my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com
   - 로그인 아이디 : happydaddy,angrydaddy
   - 비밀번호 : 1234
 ### 1. 사용 기술
