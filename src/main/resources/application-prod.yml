@@ -1,4 +1,6 @@
 server:
+  host:
+    front: http://my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com
   port: 8080
 spring:
   profiles:

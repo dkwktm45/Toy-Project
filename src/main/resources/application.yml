@@ -1,4 +1,6 @@
 server:
+  host:
+    front: http://127.0.0.1
   port: 8080
 spring:
   datasource:
@@ -18,7 +20,7 @@ spring:
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:

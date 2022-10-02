@@ -19,8 +19,12 @@ public class BoardService {
 	private final BoardRepository boardRepository;
 
 	public BoardDto createBoard(Board board) {
-		boardRepository.save(board);
-		return new BoardDto(board);
+		try{
+			boardRepository.save(board);
+			return new BoardDto(board);
+		}catch (Exception e ){
+			throw new IllegalStateException(e.getCause() + " " + e.getMessage());
+		}
 	}
 
 	public List<BoardDto> findAllBoard() {

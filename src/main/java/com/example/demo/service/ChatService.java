@@ -51,8 +51,6 @@ public class ChatService {
 		} else if (ChatMessage.MessageType.QUIT.equals(chatMessage.getType())) {
 			chatMessage.setMessage("님이 방에서 나갔습니다.");
 			chatMessage.setSender(chatMessage.getSender());
-		}else if (ChatMessage.MessageType.DUO.equals(chatMessage.getType())){
-			chatMessage.setSender(chatMessage.getSender());
 		}
 		Long userCount =chatRoomRepository.getUserCount(chatMessage.getRoomId());
 		chatMessage.setCreatedAt(LocalDateTime.now());

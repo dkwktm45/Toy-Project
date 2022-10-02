@@ -34,7 +34,6 @@ public class StompHandler implements ChannelInterceptor {
 			String jwtToken = accessor.getFirstNativeHeader("token");
 			log.info("CONNECT {}", jwtToken);
 			jwtTokenProvider.validateToken(jwtToken);
-
 		} else if (StompCommand.SUBSCRIBE == accessor.getCommand()) {
 
 			// 채팅룸 구독요청

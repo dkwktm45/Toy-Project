@@ -2,6 +2,7 @@ package com.example.demo.config;
 
 import com.example.demo.config.handler.StompHandler;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -13,7 +14,8 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSockConfig implements WebSocketMessageBrokerConfigurer {
-
+	@Value("${server.host.front}")
+	private String frontHost;
 	private final StompHandler stompHandler;
 
 	@Override
@@ -25,7 +27,7 @@ public class WebSockConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/ws-stomp").setAllowedOrigins("http://my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com/")
+		registry.addEndpoint("/ws-stomp").setAllowedOrigins(frontHost)
 				.withSockJS();
 	}
 

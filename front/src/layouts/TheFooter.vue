@@ -57,7 +57,11 @@ const alarmStyle = ref("visually-hidden")
 const button = ref('')
 let alarmList = ref([]);
 let recevieAlarm = null;
-const source = new EventSource("http://localhost:8080/receive/notify/" +name,{withCredentials : true});
+const source = new EventSource("http://my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com:8080/receive/notify/" +name,
+    {withCredentials : true
+      ,'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive'});
 
 source.onmessage = function(e) {
   var data = JSON.parse(e.data)

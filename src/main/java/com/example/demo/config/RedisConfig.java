@@ -1,16 +1,12 @@
 package com.example.demo.config;
 
 import com.example.demo.pubsub.RedisSubscriber;
-import io.lettuce.core.ClientOptions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
-import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
@@ -19,31 +15,10 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-@Profile("prod")
 @Configuration
 @RequiredArgsConstructor
 public class RedisConfig {
-	@Value("${spring.redis.host}")
-	private String host;
 
-	@Value("${spring.redis.port}")
-	private int port;
-
-
-	@Bean
-	LettuceConnectionFactory lettuceConnectionFactory() {
-
-		RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-
-		redisStandaloneConfiguration.setHostName(host);
-
-		redisStandaloneConfiguration.setPort(port);
-
-		LettuceConnectionFactory lettuceConnectionFactory =
-				new LettuceConnectionFactory(redisStandaloneConfiguration);
-
-		return lettuceConnectionFactory;
-	}
 
 	/**
 	 * 단일 Topic 사용을 위한 Bean 설정

@@ -22,7 +22,7 @@
       </div>
       <ul class="list-group room">
         <li class="list-group-item list-group-item-action" v-for="item in otherRoomList"
-            v-on:click="enterRoom(item.boardParticipantsList[0].roomId, item.boardParticipantsList[0].participantId)">
+            v-on:click="enterRoom(item.roomId, item.participantId)">
           <h5 >제목 : {{ item.boardTitle }}</h5>
           <div class="float-end">{{ item.boardWriter }}</div>
         </li>

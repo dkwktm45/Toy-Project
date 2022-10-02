@@ -26,5 +26,6 @@ public class UserDto {
 	public UserDto(User user) {
 		this.userId = user.getUserId();
 		this.userName = user.getUserName();
+		this.token = user.getToken();
 	}
 }

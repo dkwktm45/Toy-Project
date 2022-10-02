@@ -26,9 +26,10 @@ public class IndexController {
 	private final UserService userService;
 
 	@PostMapping("/loginInsert")
-	public ResponseEntity<UserDto> vue(@RequestBody User user) {
+	public ResponseEntity<UserDto> vue(@RequestBody User user) throws Exception {
 		logger.info("loginInsert");
-		return ResponseEntity.ok().header("accesstoken", jwtTokenProvider.generateToken(user.getUserName())).body(userService.saveUser(user));
+		UserDto userDto= userService.saveUser(user);
+		return ResponseEntity.ok().header("accesstoken", userDto.getToken()).body(userDto);
 	}
 
 	@GetMapping("/index")

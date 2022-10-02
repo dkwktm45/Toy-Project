@@ -17,7 +17,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class NotificationController {
 
 	private final NotificationService notificationService;
-	private static final Map<String, SseEmitter> CLIENTS = new ConcurrentHashMap<>();
 
 	@GetMapping(value = "/receive/notify/{userId}", produces = "text/event-stream")
 	public SseEmitter receiveNotify(@PathVariable("userId") String userId) {

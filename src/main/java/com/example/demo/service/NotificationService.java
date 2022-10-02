@@ -70,35 +70,6 @@ public class NotificationService {
 		sendMessage(receiveId, result);
 	}
 
-	public void agreeTyp(String sender, String receiveId, Alarm.AlarmType type){
-		Set<Alarm> alarms = null;
-		Notification notification =null;
-
-		Optional<Notification> notificationOptional = notifyRepository.findByReceive(receiveId);
-
-		Alarm noti = Alarm.builder().alarmType(type).id(UUID.randomUUID().toString())
-				.senderId(sender).senderName(sender).build();
-
-		if(notificationOptional.isEmpty()){
-			alarms = new HashSet<>();
-			alarms.add(noti);
-			notification = Notification.builder().receiveId(receiveId).alarmList(alarms).build();
-		}else{
-			alarms = notificationOptional.get().getAlarmList();
-			alarms.add(noti);
-			notificationOptional.get().setAlarmList(alarms);
-			notification = notificationOptional.get();
-		}
-		Map<String, Object> result = new HashMap<>();
-		result.put("notification",notification);
-		result.put("noti",noti);
-
-		try{
-			sendMessage(receiveId, result);
-		}catch (Exception e){
-			throw new RuntimeException();
-		}
-	};
 	public void deleteAlarm(String roomId,String userName){
 		notifyRepository.deleteAlarm(roomId,userName);
 	}

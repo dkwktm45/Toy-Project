@@ -21,17 +21,19 @@ public class UserService {
 	private final JwtTokenProvider jwtTokenProvider;
 
 
-	public UserDto saveUser(User user) {
-		Optional<User> memoryUser = userRepository.findByUserName(user.getUserName());
+	public UserDto saveUser(User user) throws Exception {
+		if (user.getUserName().isEmpty()) {
+			throw new IllegalStateException("이름이 없습니다.");
+		}
+
+		Optional<User> memoryUser = Optional.ofNullable(userRepository.findByUserName(user.getUserName()).orElse(null));
 		if (memoryUser.isEmpty()) {
 			User res = User.builder().userName(user.getUserName()).token(jwtTokenProvider.generateToken(user.getUserName())).build();
 			userRepository.save(res);
-			return new UserDto(res);
+			return UserDto.builder().userId(res.getUserId()).token(res.getToken()).userName(res.getUserName()).build();
+		} else {
+			return new UserDto(memoryUser.get());
 		}
-		return new UserDto(memoryUser.get());
-	}
 
-	public User findById(Long id) {
-		return userRepository.findById(id).get();
 	}
 }

@@ -36,7 +36,7 @@ const participantId = localStorage.getItem('wschat.participantId');
 const message = ref('')
 const messages = ref([])
 let token = ref('')
-let chatSocket = new sockjs('http://localhost:8080/ws-stomp')
+let chatSocket = new sockjs('http://my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com:8080/ws-stomp')
 const ws = Stomp.over(chatSocket)
 
 const findMessage = () => {

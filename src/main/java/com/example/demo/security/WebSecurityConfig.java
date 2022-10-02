@@ -1,5 +1,6 @@
 package com.example.demo.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -21,12 +22,15 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	@Value("${server.host.front}")
+	private String frontHost;
+
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 
 		CorsConfiguration configuration = new CorsConfiguration();
 
-		configuration.addAllowedOrigin("http://my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com/");
+		configuration.addAllowedOrigin(frontHost);
 		configuration.addAllowedMethod("*");
 		configuration.addAllowedHeader("*");
 		configuration.setMaxAge((long) 3600);
@@ -43,16 +47,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.csrf().disable()
 				.headers()
 				.frameOptions().sameOrigin()
-				.and().cors().configurationSource(corsConfigurationSource()).and()
+				.and().cors().and()
 				.authorizeRequests()
 				.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-					.antMatchers("/index","/loginInsert").permitAll()
-					.anyRequest().hasAnyRole("USER");
+				.antMatchers("/loginInsert").authenticated().antMatchers("/index").permitAll()
+					.anyRequest().authenticated();
 	}
 
 	@Bean
 	public UserDetailsService users() {
-		// The builder will ensure the passwords are encoded before saving in memory
 		User.UserBuilder users = User.withDefaultPasswordEncoder();
 		UserDetails user = users
 				.username("happydaddy")

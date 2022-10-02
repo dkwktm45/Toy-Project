@@ -34,7 +34,7 @@ const store = useStore();
 const boardList = ref([])
 const router = useRouter();
 const modal = ref(false);
-const board_title = '';
+let board_title = '';
 const myPositions = ref([]);
 const otherPositions = ref([]);
 
@@ -48,6 +48,14 @@ const createBoard = (board_title) => {
       boardTitle : board_title,
       boardWriter: store.state.username,
       user       : {userId: store.state.userId}
+    }, {
+      auth: {
+        username: store.state.username,
+        password: "1234"
+      },
+      headers :{
+        Authorization: "Basic "+ store.state.token
+      }
     }).then(response => {
       console.log("게시판 성공")
       getBoardList()
@@ -64,10 +72,15 @@ const getBoardList = () => {
     auth: {
       username: store.state.username,
       password: "1234"
+    },
+    headers :{
+      Authorization: "Basic "+ store.state.token
     }
   }).then(
       response => {
         console.log("불러오기 성공")
+        console.log("nsdklfnklsfnkldsfklnsdlnfkldnsnklfnklsdf : ")
+        console.log(response.data)
         boardList.value = response.data
       }
   )
