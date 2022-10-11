@@ -6,9 +6,10 @@
 
 이와 동시에 기존 프로젝트를 모 각 코딩을 위함이다.
 
-👉 my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com
+👉 [(my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com)](http://my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com/)
   - 로그인 아이디 : happydaddy,angrydaddy
   - 비밀번호 : 1234
+  - **운영시간 : 09:00 - 18:00**
 ### 1. 사용 기술
 #### `Back-end`    
   - Java 11 , Spring Boot 2,7,2 , Gradle , Spring Data JSP 2.7.2 , Redis 2.7.2 , MySQL 5.1 ,Security 2.7.2 , Websocket 2.7.2
