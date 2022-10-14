@@ -37,7 +37,7 @@
   - 채팅방에서 유저 한명만 채팅을 하고 있다면, [emmitter](https://github.com/dkwktm45/Toy-Project/blob/eb4c4da159580eaaa91e06ed3e0c8951ef8554ec/src/main/java/com/example/demo/service/NotificationService.java#L30-L40)를 통한 상대방에게 알림을 보냅니다.
 
 ## Application Load Balancer 구성도
-![image](https://user-images.githubusercontent.com/48014869/193465683-4dad5276-b41a-4993-a5e7-a1a0fc06b92a.png)
+![image](https://user-images.githubusercontent.com/48014869/195769992-fc8c33c7-0cd3-4296-918a-c92a7afd9885.png)
 **<span style = "color:red;">AWS의 ALB를 통한 무중단 베포를 구축했습니다.</span>**
 
 <br>
