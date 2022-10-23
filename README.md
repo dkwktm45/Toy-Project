@@ -35,6 +35,18 @@
 #### 3. 알림
   - 알림은 SSE 방식으로서 로그인이 되고, client는 자동으로 알림을 위한 [요청](https://github.com/dkwktm45/Toy-Project/blob/eb4c4da159580eaaa91e06ed3e0c8951ef8554ec/src/main/java/com/example/demo/controller/NotificationController.java#L22-L34)을 합니다.
   - 채팅방에서 유저 한명만 채팅을 하고 있다면, [emmitter](https://github.com/dkwktm45/Toy-Project/blob/eb4c4da159580eaaa91e06ed3e0c8951ef8554ec/src/main/java/com/example/demo/service/NotificationService.java#L30-L40)를 통한 상대방에게 알림을 보냅니다.
+## Application Load Balancer 배포 전략
+  - 어떻게 구성을 하였는가?
+  
+  ![image](https://user-images.githubusercontent.com/48014869/197376786-7cb6e848-f08e-4b26-b191-03eaf682ebe1.png)
+  
+  Docker를 통한 Docker hub에 이미지를 올리고 해당 이미지에 대한 작업정의서를 올려 port별로 health check를 합니다.
+  - 배포 전략
+  
+  ![image](https://user-images.githubusercontent.com/48014869/197376811-fbdf45ad-ba5b-46e1-8510-6b46e6e10272.png)
+  
+  boto3를 통한 Lambda 등록, 등록된 Lambda함수를 Event Bridge에 일정 시간에 만 배포되어 있도록 설정
+
 
 ## Application Load Balancer 구성도
 ![image](https://user-images.githubusercontent.com/48014869/195769992-fc8c33c7-0cd3-4296-918a-c92a7afd9885.png)
