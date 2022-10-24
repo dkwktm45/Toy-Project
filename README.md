@@ -4,12 +4,11 @@
 #### 개요
 지금까지 프로젝트를 하면서 배포 경험은 나에게는 없던 경험이었다. 하지만 이번에 기회였던. [기초부터 시작하는 AWS 인프라 구축과 운영, 그리고 DevOps 엔지니어링 실무](https://github.com/dkwktm45/Toy-Project/files/9692285/PT_._DevOps_6._.pdf)  과정을 들으면서 ToyProject를 배포해 보기로 결심하면서 만든 프로젝트이다.
 
-이와 동시에 기존 프로젝트를 모 각 코딩을 위함이다.
-
 👉 [(my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com)](http://my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com/)
   - 로그인 아이디 : happydaddy,angrydaddy
   - 비밀번호 : 1234
   - **운영시간 : 09:00 - 18:00**
+  - 비용 문제로 인한 지금은 해당 서비스를 운영중이 아닙니다.(면접시에만 운영되는점 양해 부탁드립니다.)
 ### 1. 사용 기술
 #### `Back-end`    
   - Java 11 , Spring Boot 2,7,2 , Gradle , Spring Data JSP 2.7.2 , Redis 2.7.2 , MySQL 5.1 ,Security 2.7.2 , Websocket 2.7.2
