@@ -11,7 +11,7 @@
   - 비용 문제로 인한 지금은 해당 서비스를 운영중이 아닙니다.(면접시에만 운영되는점 양해 부탁드립니다.)
 ### 1. 사용 기술
 #### `Back-end`    
-  - Java 11 , Spring Boot 2,7,2 , Gradle , Spring Data JSP 2.7.2 , Redis 2.7.2 , MySQL 5.1 ,Security 2.7.2 , Websocket 2.7.2
+  - Java 11 , Spring Boot 2,7,2 , Gradle , Spring Data JSP 2.7.2 , Redis 2.7.2 , MySQL 5.1 , Websocket 2.7.2
 #### `Front-end`
   - Vue3 , Axios , Bootstrap
 #### `DevOps`
