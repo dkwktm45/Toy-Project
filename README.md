@@ -75,7 +75,9 @@
 <details>
 <summary>사용자 흐름</summary>
 <div markdown="1">
+
 ![image](https://user-images.githubusercontent.com/48014869/236188161-adfce986-c0cc-4a15-ab9e-3f0c62d467a8.png)
+
 </div>
 </details>
 
