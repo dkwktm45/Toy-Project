@@ -92,3 +92,11 @@
 </div>
 </details>
 
+<details>
+<summary>UI / UX (진행중 기본적인 뼈대 구성)</summary>
+<div markdown="1">
+
+![image](https://user-images.githubusercontent.com/48014869/236675979-87ce4746-e193-4d4b-8888-415a2e092714.png)
+
+</div>
+</details>
