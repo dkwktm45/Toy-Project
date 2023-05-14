@@ -1,0 +1,19 @@
+### 테스트 요청
+POST http://localhost:8080/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "dkwktm45@naver.com",
+  "password": "dkwktm45"
+}
+
+### kakao 회원가입
+POST http://localhost:8080/login
+Content-Type: application/json
+Accept: application/json
+
+{
+"email": "dkwktm45@naver.com",
+"password": "dkwktm45"
+}
