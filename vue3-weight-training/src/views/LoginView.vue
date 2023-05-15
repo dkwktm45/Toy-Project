@@ -22,12 +22,9 @@
   </div>
 </template>
 <script setup>
-import axios from "axios";
 const kakaoLogin = () => {
-  axios.get("/kakao/login").then(resposne =>{
-    console.log(resposne)
-    window.location.href= resposne.data
-  })
+  const url = "https://kauth.kakao.com/oauth/authorize?client_id=dd90fef97c072b58ed261dd3722b83b0&redirect_uri=http://localhost:8080/kakao/login&response_type=code";
+  window.open(url,"_blank", "width=500, height=500")
 }
 </script>
 

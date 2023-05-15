@@ -17,3 +17,22 @@ Accept: application/json
 "email": "dkwktm45@naver.com",
 "password": "dkwktm45"
 }
+
+### kakao 연결 끊기
+POST https://kapi.kakao.com/v2/user/me
+Authorization: "Bearer adIXZewhhlqiIybm-ftyT9tHa265sd7p0SB8bEOVpCj10lwAAAYgekrvn"
+
+### 토큰 요청
+POST https://kauth.kakao.com/oauth/token
+Content-Type: application/json
+Accept: application/json
+
+{
+"grant_type": "authorization_code",
+"client_id": "dd90fef97c072b58ed261dd3722b83b0",
+"redirect_url": "http://localhost:8080/kakao/login",
+"code": "aEtHP-JhwDIlX6G4vJJzT5xV-dHAyUs_aPLjFJZocfH3IMUKkwQfOInLelBk-QRbdZYjZAo9c04AAAGIHpzkww"
+}
+
+### kakao 연결
+GET https://kauth.kakao.com/oauth/authorize?client_id=dd90fef97c072b58ed261dd3722b83b0&redirect_uri=http://localhost:8080/kakao/login&response_type=code"
