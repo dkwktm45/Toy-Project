@@ -1,6 +1,5 @@
 package com.example.weighttraining.controller;
 
-import com.example.weighttraining.request.UserLogin;
 import com.example.weighttraining.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +13,6 @@ import java.util.HashMap;
 public class UserController {
 
     private final UserService userService;
-
-    @PostMapping("/login")
-    public String login(@RequestBody UserLogin userLogin) throws IllegalAccessException {
-        userService.login(userLogin);
-        return "ok";
-    }
 
     @GetMapping("/kakao/login")
     public RedirectView login(@RequestParam String code, HttpSession session){

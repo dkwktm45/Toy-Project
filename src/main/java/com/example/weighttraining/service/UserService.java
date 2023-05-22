@@ -1,6 +1,7 @@
 package com.example.weighttraining.service;
 
 import com.example.weighttraining.api.KaKaoAPI;
+import com.example.weighttraining.entity.User;
 import com.example.weighttraining.repository.UserRepostiory;
 import com.example.weighttraining.request.UserLogin;
 import com.google.gson.JsonElement;
@@ -27,8 +28,9 @@ public class UserService {
     public void login(UserLogin userLogin) throws IllegalAccessException {
         if(userRepostiory.findByEmail(userLogin.getEmail()).isPresent()){
             log.info("존재하는 이메일");
-            userRepostiory.findByEmailAndPassword(userLogin.getEmail(),userLogin.getPassword())
+            User user = userRepostiory.findByEmailAndPassword(userLogin.getEmail(),userLogin.getPassword())
                     .orElseThrow();
+//            user.login(user.getPassword(), )
         }else{
             throw new IllegalAccessException("존재하지 않는 회원입니다.");
         }

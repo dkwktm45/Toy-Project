@@ -1,5 +1,5 @@
 ### 테스트 요청
-POST http://localhost:8080/login
+POST http://localhost:8080/Auth/login
 Content-Type: application/json
 Accept: application/json
 
@@ -7,6 +7,12 @@ Accept: application/json
   "email": "dkwktm45@naver.com",
   "password": "dkwktm45"
 }
+
+### 인증이 있는 사람의 요청
+GET http://localhost:8080/foo
+Content-Type: application/json
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODQ3NTQyNTksImV4cCI6MTY4NDc2MTQ1OSwic3ViIjoiMSJ9.IQhlDtlJ5c6f63ziaPKZZjLQyQPX4fpqXuuL2JhmUuQ
 
 ### kakao 회원가입
 POST http://localhost:8080/login
