@@ -12,7 +12,8 @@ Accept: application/json
 GET http://localhost:8080/foo
 Content-Type: application/json
 Accept: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODQ3NTQyNTksImV4cCI6MTY4NDc2MTQ1OSwic3ViIjoiMSJ9.IQhlDtlJ5c6f63ziaPKZZjLQyQPX4fpqXuuL2JhmUuQ
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODQ4MzY1NzUsImV4cCI6MTY4NzQyODU3NSwic3ViIjoiMSJ9.JzzH7J-GTrUsGaj0sV9PDHp2oEK_AW0_nZQNlc3Zbis
+refresh-authorization: 53697d7c-a2e1-4ea9-b589-dace6631cfb1
 
 ### kakao 회원가입
 POST http://localhost:8080/login
@@ -29,7 +30,7 @@ POST https://kapi.kakao.com/v2/user/me
 Authorization: "Bearer adIXZewhhlqiIybm-ftyT9tHa265sd7p0SB8bEOVpCj10lwAAAYgekrvn"
 
 ### 토큰 요청
-POST https://kauth.kakao.com/oauth/token
+POST https://kauth.kakao.com/oauth/tokenId
 Content-Type: application/json
 Accept: application/json
 

@@ -25,19 +25,6 @@ public class UserService {
 
     private final KaKaoAPI kaKaoAPI = new KaKaoAPI();
 
-    public void login(UserLogin userLogin) throws IllegalAccessException {
-        if(userRepostiory.findByEmail(userLogin.getEmail()).isPresent()){
-            log.info("존재하는 이메일");
-            User user = userRepostiory.findByEmailAndPassword(userLogin.getEmail(),userLogin.getPassword())
-                    .orElseThrow();
-//            user.login(user.getPassword(), )
-        }else{
-            throw new IllegalAccessException("존재하지 않는 회원입니다.");
-        }
-    }
-
-
-
     public HashMap<String, Object> getUserKakaoInfo(String code) {
         String access_token = kaKaoAPI.getToken(code);
 
@@ -93,5 +80,9 @@ public class UserService {
         }
 
         return userInfo;
+    }
+
+    public User findUser(String email) throws IllegalAccessException {
+        return userRepostiory.findByEmail(email).orElseThrow(() -> new IllegalAccessException("존재하지 않는 회원입니다."));
     }
 }

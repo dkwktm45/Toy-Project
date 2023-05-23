@@ -1,9 +1,6 @@
 package com.example.weighttraining.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +17,8 @@ public class User {
     private String nickName;
     private String email;
     private String password;
-
+    @OneToOne
+    private RefreshToken refreshToken;
     @Builder
     public User( String nickName, String email,String password) {
         this.nickName = nickName;
