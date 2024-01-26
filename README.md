@@ -2,11 +2,10 @@
 #### 1:1 Open 채팅프로그램을 구현을 위한 설계
 
 #### 개요
-지금까지 프로젝트를 하면서 베포 경험은 나에게는 없던 경험이였다. 하지만 이번에 기회 였던. [기초부터 시작하는 AWS 인프라 구축과 운영, 그리고 DevOps 엔지니어링 실무](https://github.com/dkwktm45/Toy-Project/files/9692285/PT_._DevOps_6._.pdf) 과정을 들으면서 ToyProject를 베포 해보기로 결심하면서 만든 프로젝트이다.
+지금까지 프로젝트를 하면서 배포 경험은 나에게는 없던 경험이었다. 하지만 이번에 기회였던. [기초부터 시작하는 AWS 인프라 구축과 운영, 그리고 DevOps 엔지니어링 실무](https://github.com/dkwktm45/Toy-Project/files/9692285/PT_._DevOps_6._.pdf) 과정을 들으면서 ToyProject를 배포 해보기로 결심하면서 만든 프로젝트이다.
 
 이와 동시에 기존 프로젝트를 모각코딩을 위함이다.
 
-👉 [프로젝트 링크](my-test-ecs-alb-47067582.ap-northeast-2.elb.amazonaws.com)
 ### 1. 사용 기술
 #### `Back-end`    
   - Java 11 , Spring Boot 2,7,2 , Gradle , Spring Data JSP 2.7.2 , Redis 2.7.2 , MySQL 5.1 ,Security 2.7.2 , Websocket 2.7.2
@@ -34,14 +33,8 @@
   - 채팅방에서 유저 한명만 채팅을 하고 있다면, [emmitter](https://github.com/dkwktm45/Toy-Project/blob/eb4c4da159580eaaa91e06ed3e0c8951ef8554ec/src/main/java/com/example/demo/service/NotificationService.java#L30-L40)를 통한 상대방에게 알림을 보냅니다.
 
 ## Application Load Balancer 구성도
-![image](https://user-images.githubusercontent.com/48014869/193449035-e238ed72-7e7d-4ac2-8300-3803337af389.png)
-**<span style = "color:red;">AWS의 ALB를 통한 무중단 베포를 구축했습니다.</span>**
+![image](https://github.com/dkwktm45/Toy-Project/assets/48014869/58063fa0-4f17-493d-9862-5fc366d15b0d)
 
-<br>
-
-### 보완해야 할점
-- 베포상의 VueJS에서 Socket connect 지연 문제.
-- CICD 구축
 
 
 
